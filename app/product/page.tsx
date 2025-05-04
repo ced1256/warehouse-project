@@ -238,9 +238,12 @@ export default function ProductList() {
               customerid: item.customerid,
               totalquantity: item.totalquantity,
               // Fix product name access - ensure proper nesting and check structure
-              name: Array.isArray(item.product)
-                ? item.product[0]?.ProductName
-                : item.product?.ProductName || "N/A",
+              name:
+                Array.isArray(item.product) && item.product.length > 0
+                  ? item.product[0]?.ProductName ?? "N/A"
+                  : typeof item.product === "object" && item.product !== null
+                  ? (item.product as any).ProductName ?? "N/A"
+                  : "N/A",
               customer: null, // Customer details not needed in customer view
             })) || [];
           setInventoryProducts(formattedData);
@@ -291,9 +294,12 @@ export default function ProductList() {
               customerid: item.customerid ?? undefined,
               totalquantity: item.totalquantity,
               // Fix product name access
-              name: Array.isArray(item.product)
-                ? item.product[0]?.ProductName
-                : item.product?.ProductName || "N/A",
+              name:
+                Array.isArray(item.product) && item.product.length > 0
+                  ? item.product[0]?.ProductName ?? "N/A"
+                  : typeof item.product === "object" && item.product !== null
+                  ? (item.product as any).ProductName ?? "N/A"
+                  : "N/A",
               customer: item.customer, // Include fetched customer details (assuming it's an object or null)
             })) || [];
           setInventoryProducts(formattedData);

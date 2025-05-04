@@ -2,7 +2,8 @@
 
 import { createClient } from "@/lib/supabase"; // Assuming this path is correct
 // *** FIX: Ensure types are imported ***
-import { Product, InventoryProduct } from "@/types"; // Assuming Product & InventoryProduct are defined in @/types
+import { Product } from "@/types";
+import { InventoryProduct } from "@/app/product/page";
 
 /**
  * Adds a new product definition to the 'product' table.
@@ -31,7 +32,6 @@ export async function addProduct(formData: FormData, userEmail: string) {
 
   // Prepare data for insertion based *only* on columns in the 'product' table
   const productData: Partial<Product> = {
-    // Use Partial<Product> or define a specific insert type
     ProductName: productName.trim(),
     // Add other fields from your 'product' table schema if they are submitted by the form
     // e.g., MaxQuantity: maxQuantityStr ? parseInt(maxQuantityStr, 10) : null,
